@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class ConexionOracle {
     String user = "system";
     String passwd = "admin";
-    String url = "jdbc:oracle:thin:@localhost:1521:XE";
+    String url = "jdbc:oracle:thin:@localhost:1521:xe";
     Connection conexionOracle;
 
     public ConexionOracle() {
