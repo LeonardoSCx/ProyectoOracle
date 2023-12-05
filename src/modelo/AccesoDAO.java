@@ -80,6 +80,7 @@ public class AccesoDAO {
             ResultSet resul = sentencia.executeQuery(query);
             while (resul.next()) {
                 String nombreTeatro = resul.getString(2);
+                System.out.println(nombreTeatro);
                 lista.add(nombreTeatro);
             }
         } catch (SQLException ex) {
