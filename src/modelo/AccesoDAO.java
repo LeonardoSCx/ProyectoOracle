@@ -69,6 +69,23 @@ public class AccesoDAO {
         return clientes;
     }
     public ArrayList devolverIdReserva(){
-        return null;
+        ArrayList<Integer> ideReservas = new ArrayList<>();
+        try {
+            String consulta = "select id from reservas";
+            Statement statement = conexion.createStatement();
+            ResultSet resultado = statement.executeQuery(consulta);
+            
+            //Recorre los resultados de la consulta y los añade al arraylist
+            while(resultado.next()){
+                int idReserva = resultado.getInt("id");
+                ideReservas.add(idReserva);
+            }
+            resultado.close();
+            statement.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ideReservas;
     }
 }
