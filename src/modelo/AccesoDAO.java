@@ -71,6 +71,28 @@ public class AccesoDAO {
         return clientes;
     }
 
+    public ArrayList mostrarTeatro() {
+
+        Statement sentencia;
+        ArrayList<String> lista = new ArrayList<>();
+        try {
+            sentencia = conexion.createStatement();
+            String query = "SELECT * FROM TEATRO";
+            ResultSet resul = sentencia.executeQuery(query);
+            while (resul.next()) {
+                String nombreTeatro = resul.getString(2);
+                System.out.println(nombreTeatro);
+                lista.add(nombreTeatro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lista;
+
+    }
+
+
     public ArrayList nombreObras() {
 
         String querySelect = "SELECT * FROM OBRA";
