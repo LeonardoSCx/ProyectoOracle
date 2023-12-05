@@ -45,6 +45,7 @@ public class AccesoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }
     
     public String[] recorrerClientes(){
