@@ -67,4 +67,8 @@ public class AccesoDAO {
         }
         return clientes;
     }
+  public void mostrarTeatro(){
+      System.out.println("mostrar");
+  }
+           
 }
