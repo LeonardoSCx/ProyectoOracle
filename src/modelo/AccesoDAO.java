@@ -13,6 +13,7 @@ public class AccesoDAO {
 
     private ConexionOracle con;
     private Connection conexion;
+    ArrayList<String> obras = new ArrayList<>();
 
     public AccesoDAO() {
 
@@ -91,4 +92,25 @@ public class AccesoDAO {
 
     }
 
+
+    public ArrayList nombreObras() {
+
+        String querySelect = "SELECT * FROM OBRA";
+        Statement sentencia;
+        String nomObra;
+        try {
+            sentencia = conexion.createStatement();
+            ResultSet resultado = sentencia.executeQuery(querySelect);
+            while (resultado.next()) {
+                nomObra = resultado.getString(2);
+                obras.add(nomObra);
+                System.out.println(nomObra);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return obras;
+
+    }
 }
