@@ -2,6 +2,7 @@ package modelo;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,5 +67,8 @@ public class AccesoDAO {
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return clientes;
+    }
+    public ArrayList devolverIdReserva(){
+        return null;
     }
 }
