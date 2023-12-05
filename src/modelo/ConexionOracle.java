@@ -17,7 +17,7 @@ public class ConexionOracle {
         try {
             conexionOracle = DriverManager.getConnection(url,user,passwd);
             if (conexionOracle != null) {
-                System.out.println("yey");
+                System.out.println("Conexion establecida!");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ConexionOracle.class.getName()).log(Level.SEVERE, null, ex);

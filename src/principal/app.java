@@ -1,10 +1,15 @@
 package principal;
 
-import java.sql.*;
+import controlador.Controller;
+import interfaz.MostrarReservas;
 import modelo.AccesoDAO;
+
 public class app {
+    
     public static void main(String[] args) {
+        MostrarReservas vista = new MostrarReservas();
         AccesoDAO modelo = new AccesoDAO();
-        modelo.queryTable("teatro");
+        Controller controlador = new Controller(vista, modelo);
+        
     }
 }

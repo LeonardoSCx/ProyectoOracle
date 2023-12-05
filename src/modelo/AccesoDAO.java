@@ -1,9 +1,7 @@
 package modelo;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,31 +17,53 @@ public class AccesoDAO {
 
         con = new ConexionOracle();
         conexion = con.conectar();
-//        if (conexion != null) {
-//            System.out.println("Hello");
-//        }
         //con.desconectar();
     }
-    
     public void queryTable(String tabla) {
         try {
             Statement sentencia = conexion.createStatement();
-            String query = "SELECT * FROM obra";
+            String query = "SELECT * FROM " + tabla.toUpperCase();
             ResultSet resul = sentencia.executeQuery(query);
             while (resul.next()) {
+                int idReserva;
+                int idCliente;
                 int idObra;
-                String nombre;
-                String descripcion;
-                String genero;
-                idObra = resul.getInt(1);
-                nombre = resul.getString(2);
-                descripcion = resul.getString(3);
-                genero = resul.getString(4);
-                System.out.println("Nombre: " + nombre + "\nDescripción: " + descripcion + "\nGénero: " + genero);
-                System.out.println();
+                int idTeatro;
+                float precio;
+                
+                idReserva = resul.getInt(1);
+                idCliente = resul.getInt(2);
+                idObra = resul.getInt(3);
+                idTeatro = resul.getInt(4);
+                precio = resul.getInt(5);
+                
+                System.out.println("Reserva: " + idReserva + "\nID Cliente: " + idCliente
+                + "\nId Obra: " + idObra + "\nID Teatro: " + idTeatro + "\n"
+                        + "Precio: " + precio);
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String[] recorrerClientes(){
+        String[] clientes = new String[5];
+        int indice = 0;
+        try {
+            String consulta = "SELECT nombre from CLIENTE";
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado = sentencia.executeQuery(consulta);
+            while (resultado.next()) {     
+                System.out.println(resultado.getString(1));
+ 
+                    clientes[indice] = resultado.getString(1);
+                    indice++;
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clientes;
     }
 }

@@ -18,6 +18,7 @@ public class MostrarReservas extends javax.swing.JFrame {
      */
     public MostrarReservas() {
         initComponents();
+        setVisible(true);
     }
 
     /**
