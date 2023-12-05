@@ -23,6 +23,7 @@ public class Controller implements ActionListener {
         this.view = view;
         this.model = model;
         agregarListener(this);
+        model.nombreObras();
         
     }
 
