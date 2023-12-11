@@ -71,7 +71,6 @@ public class AccesoDAO {
             ResultSet resul = sentencia.executeQuery(query);
             while (resul.next()) {
                 String nombreTeatro = resul.getString(2);
-                System.out.println(nombreTeatro);
                 lista.add(nombreTeatro);
             }
         } catch (SQLException ex) {
@@ -97,7 +96,6 @@ public class AccesoDAO {
             while (resultado.next()) {
                 nomObra = resultado.getString(2);
                 obras.add(nomObra);
-                System.out.println(nomObra);
             }
 
         } catch (SQLException ex) {
@@ -140,5 +138,100 @@ public class AccesoDAO {
             System.out.println(ex.toString());
         }
         return hecho;
+    }
+
+    public String getIDCliente(String nombreCliente) {
+        String consulta = "SELECT dni FROM CLIENTE WHERE nombre=?";
+        String idcliente = "";
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, nombreCliente);
+            ResultSet resultado = sentencia.executeQuery();
+            while (resultado.next()) {
+                idcliente = resultado.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idcliente;
+    }
+    public int getIDObra(String nombreCliente) {
+        String consulta = "SELECT idobra FROM OBRA WHERE nombre=?";
+        int idobra =0;
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, nombreCliente);
+            ResultSet resultado = sentencia.executeQuery();
+            while (resultado.next()) {
+                idobra = resultado.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idobra;
+    }
+    public int getIDTeatro(String nombreCliente) {
+        String consulta = "SELECT idteatro FROM TEATRO WHERE nombre=?";
+        int idTeatro = 0;
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, nombreCliente);
+            ResultSet resultado = sentencia.executeQuery();
+            while (resultado.next()) {
+                idTeatro = resultado.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idTeatro;
+    }
+
+    public void insertarReserva(String idCliente, int idObra, int idTeatro, float precio) {
+        try {
+            String query = "INSERT INTO RESERVA (idcliente, idObra, idteatro, precio) VALUES (?, ?, ?, ?)";
+
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1, idCliente);
+            statement.setInt(2, idObra);
+            statement.setInt(3, idTeatro);
+            statement.setFloat(4, precio);
+            statement.executeUpdate();
+            statement.close();
+
+            System.out.println("Reserva insertada correctamente.");
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar la reserva: " + ex.getMessage());
+        }
+    }
+
+    public int getLastReserva() {
+        int idReserva = 0;
+        String consulta = "SELECT MAX(idreserva) FROM RESERVA";
+        try {
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            ResultSet resultado = sentencia.executeQuery();
+            while(resultado.next()){
+                idReserva = resultado.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idReserva;
+    }
+
+    public void insertarHistorico(int idReserva) {
+        String sql = "{call pa_insertar_historico(?,?,?)}";
+        try {
+            CallableStatement llamada = conexion.prepareCall(sql);
+            llamada.setString(1, "Reservado");
+            llamada.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
+            llamada.setInt(3, idReserva);
+            llamada.executeUpdate();
+            llamada.close();
+            conexion.close();
+        } catch (SQLException ex) {
+            System.out.println("Mondongo");
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

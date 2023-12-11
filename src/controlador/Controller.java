@@ -11,13 +11,17 @@ public class Controller implements ActionListener {
 
     AccesoDAO model;
     MostrarReservas view;
-    CrearReserva viewInsert;
+    CrearReserva viewReserva;
 
-    public Controller(MostrarReservas view, AccesoDAO model) {
+    public Controller(MostrarReservas view, AccesoDAO model, CrearReserva viewReserva) {
         this.view = view;
         this.model = model;
+        this.viewReserva = viewReserva;
         agregarListener(this);
         cargarClientes();
+        CargarObra();
+        CargarClienteReserva();
+        cargarTeatro();
 
     }
 
@@ -26,6 +30,7 @@ public class Controller implements ActionListener {
         view.getBtnNuevaReserva().addActionListener(listener);
         view.btnEliminar.addActionListener(listener);
         view.btnNuevaReserva.addActionListener(listener);
+        viewReserva.btnReservar.addActionListener(listener);
     }
 
     @Override
@@ -52,6 +57,24 @@ public class Controller implements ActionListener {
                     System.out.println("Algo salió mal");
                 }
             }
+        }else if(comando.equals("Crear nueva Reserva")){
+            viewReserva.setVisible(true);
+        }else if(comando.equals("RESERVAR")){
+            String clienteReserva = viewReserva.desplegableClienteReserva.getSelectedItem().toString();
+            String obras = viewReserva.desplegableObras.getSelectedItem().toString();
+            String teatro = viewReserva.desplegableTeatros.getSelectedItem().toString();
+            if (clienteReserva != null && obras != null && teatro != null) {
+                if (!viewReserva.txtCoste.getText().isEmpty()) {
+                    float precio = Float.parseFloat(viewReserva.txtCoste.getText());
+                    model.insertarReserva(model.getIDCliente(clienteReserva), model.getIDObra(obras), model.getIDTeatro(teatro), precio);   
+                    model.insertarHistorico(model.getLastReserva());
+                } else {
+                    System.out.println("El campo de precio está vacío.");
+                }
+
+            } else {
+                System.out.println("Por favor, seleccione un cliente, una obra y un teatro.");
+            }
         }
     }
 
@@ -68,6 +91,29 @@ public class Controller implements ActionListener {
         ArrayList<Integer> reservas = model.idsReserva(cliente);
         for (int id : reservas) {
             view.desplegableReservas.addItem(id + "");
+        }
+    }
+    public void CargarObra() {
+        viewReserva.desplegableObras.removeAllItems();
+        ArrayList<String> obras = model.nombreObras();
+        for (String obra : obras) {
+            viewReserva.desplegableObras.addItem(obra);
+        }
+    }
+
+    public void CargarClienteReserva() {
+        viewReserva.desplegableClienteReserva.removeAllItems();
+        ArrayList<String> clientes = model.recorrerClientes();
+        for (String cliente : clientes) {
+            viewReserva.desplegableClienteReserva.addItem(cliente);
+        }
+    }
+
+    public void cargarTeatro() {
+        viewReserva.desplegableTeatros.removeAllItems();
+        ArrayList<String> teatros = model.mostrarTeatro();
+        for (String teatro : teatros) {
+            viewReserva.desplegableTeatros.addItem(teatro);
         }
     }
 }
