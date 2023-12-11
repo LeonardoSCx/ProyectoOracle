@@ -34,7 +34,7 @@ public class MostrarReservas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnNuevaReserva = new javax.swing.JButton();
         desplegableReservas = new javax.swing.JComboBox<>();
-        btnMostrar1 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,7 +53,7 @@ public class MostrarReservas extends javax.swing.JFrame {
 
         jLabel2.setText("CONSULTA DE RESERVAS");
 
-        btnNuevaReserva.setText("CREAR NUEVA RESERVA");
+        btnNuevaReserva.setText("Crear nueva Reserva");
 
         desplegableReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,10 +61,10 @@ public class MostrarReservas extends javax.swing.JFrame {
             }
         });
 
-        btnMostrar1.setLabel("Eliminar Reserva");
-        btnMostrar1.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setLabel("Eliminar Reserva");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrar1ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -82,7 +82,7 @@ public class MostrarReservas extends javax.swing.JFrame {
                     .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(desplegableClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(desplegableReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrar1))
+                    .addComponent(btnEliminar))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNuevaReserva)
@@ -110,7 +110,7 @@ public class MostrarReservas extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(desplegableReservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnMostrar1)))
+                        .addComponent(btnEliminar)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -125,9 +125,9 @@ public class MostrarReservas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_desplegableReservasActionPerformed
 
-    private void btnMostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrar1ActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnMostrar1ActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,9 +178,9 @@ public class MostrarReservas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnMostrar;
-    private javax.swing.JButton btnMostrar1;
-    private javax.swing.JButton btnNuevaReserva;
+    public javax.swing.JButton btnNuevaReserva;
     public javax.swing.JComboBox<String> desplegableClientes;
     public javax.swing.JComboBox<String> desplegableReservas;
     private javax.swing.JLabel jLabel1;
