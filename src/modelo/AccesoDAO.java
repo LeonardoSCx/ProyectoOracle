@@ -16,59 +16,54 @@ public class AccesoDAO {
     ArrayList<String> obras = new ArrayList<>();
 
     public AccesoDAO() {
-
         con = new ConexionOracle();
         conexion = con.conectar();
-        //con.desconectar();
     }
 
-    public void queryTable(String tabla) {
+    public String consultaReserva(String nomCliente) {
+        String contenido = "";
         try {
-            Statement sentencia = conexion.createStatement();
-            String query = "SELECT * FROM " + tabla.toUpperCase();
-            ResultSet resul = sentencia.executeQuery(query);
+            String consulta = "SELECT r.idreserva, c.nombre,c.dni, t.nombre, o.nombre, r.precio from RESERVA r inner join CLIENTE c on r.idcliente = c.dni INNER JOIN OBRA o on r.idobra = o.idobra INNER JOIN TEATRO t on r.idteatro = t.idteatro WHERE c.nombre=?";
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            sentencia.setString(1, nomCliente);
+            ResultSet resul = sentencia.executeQuery();
+            
             while (resul.next()) {
                 int idReserva;
-                int idCliente;
-                int idObra;
-                int idTeatro;
+                String nombreCliente;
+                String idCliente;
+                String nombreTeatro;
+                String nombreObra;
                 float precio;
 
                 idReserva = resul.getInt(1);
-                idCliente = resul.getInt(2);
-                idObra = resul.getInt(3);
-                idTeatro = resul.getInt(4);
-                precio = resul.getInt(5);
+                nombreCliente = resul.getString(2);
+                idCliente = resul.getString(3);
+                nombreTeatro = resul.getString(4);
+                nombreObra = resul.getString(5);
+                precio = resul.getFloat(6);
 
-                System.out.println("Reserva: " + idReserva + "\nID Cliente: " + idCliente
-                        + "\nId Obra: " + idObra + "\nID Teatro: " + idTeatro + "\n"
-                        + "Precio: " + precio);
-
+                contenido += "ID Reserva: "+idReserva+" Nombre: " + nombreCliente + " DNI: " + idCliente + " Teatro: " + nombreTeatro + "Obra: " + nombreObra + " Precio: " + precio;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return contenido;
     }
 
-    public String[] recorrerClientes() {
-        String[] clientes = new String[5];
-        int indice = 0;
+    public ArrayList<String> recorrerClientes() {
+        ArrayList<String> lista = new ArrayList<>();
         try {
-            String consulta = "SELECT nombre from CLIENTE";
+            String consulta = "SELECT nombre FROM CLIENTE";
             Statement sentencia = conexion.createStatement();
             ResultSet resultado = sentencia.executeQuery(consulta);
             while (resultado.next()) {
-                System.out.println(resultado.getString(1));
-
-                clientes[indice] = resultado.getString(1);
-                indice++;
-
+                lista.add(resultado.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return clientes;
+        return lista;
     }
 
     public ArrayList mostrarTeatro() {
@@ -92,6 +87,9 @@ public class AccesoDAO {
 
     }
 
+    public void introducirDatos(String dniCliente, String idTeatro, String idObra, double precio) {
+
+    }
 
     public ArrayList nombreObras() {
 

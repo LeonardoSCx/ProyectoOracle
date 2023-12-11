@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaz;
 
 import javax.swing.JButton;
@@ -33,20 +29,14 @@ public class MostrarReservas extends javax.swing.JFrame {
         desplegableClientes = new javax.swing.JComboBox<>();
         btnMostrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtReservas = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnNuevaReserva = new javax.swing.JButton();
-        desplegableClientes1 = new javax.swing.JComboBox<>();
+        desplegableReservas = new javax.swing.JComboBox<>();
         btnMostrar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        desplegableClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                desplegableClientesActionPerformed(evt);
-            }
-        });
 
         btnMostrar.setText("Mostrar");
         btnMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -55,9 +45,9 @@ public class MostrarReservas extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtReservas.setColumns(20);
+        txtReservas.setRows(5);
+        jScrollPane1.setViewportView(txtReservas);
 
         jLabel1.setText("RESERVAS DEL CLIENTE: ");
 
@@ -65,14 +55,13 @@ public class MostrarReservas extends javax.swing.JFrame {
 
         btnNuevaReserva.setText("CREAR NUEVA RESERVA");
 
-        desplegableClientes1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        desplegableClientes1.addActionListener(new java.awt.event.ActionListener() {
+        desplegableReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                desplegableClientes1ActionPerformed(evt);
+                desplegableReservasActionPerformed(evt);
             }
         });
 
-        btnMostrar1.setText("Mostrar");
+        btnMostrar1.setLabel("Eliminar Reserva");
         btnMostrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrar1ActionPerformed(evt);
@@ -87,18 +76,18 @@ public class MostrarReservas extends javax.swing.JFrame {
                 .addGap(130, 130, 130)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(desplegableClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(desplegableClientes1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMostrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                    .addComponent(desplegableReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMostrar1))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNuevaReserva)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
@@ -116,10 +105,10 @@ public class MostrarReservas extends javax.swing.JFrame {
                         .addComponent(btnNuevaReserva))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(desplegableClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addComponent(btnMostrar)
-                        .addGap(32, 32, 32)
-                        .addComponent(desplegableClientes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(desplegableReservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnMostrar1)))
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -128,17 +117,13 @@ public class MostrarReservas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void desplegableClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegableClientesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_desplegableClientesActionPerformed
-
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMostrarActionPerformed
 
-    private void desplegableClientes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegableClientes1ActionPerformed
+    private void desplegableReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegableReservasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_desplegableClientes1ActionPerformed
+    }//GEN-LAST:event_desplegableReservasActionPerformed
 
     private void btnMostrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrar1ActionPerformed
         // TODO add your handling code here:
@@ -196,11 +181,11 @@ public class MostrarReservas extends javax.swing.JFrame {
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnMostrar1;
     private javax.swing.JButton btnNuevaReserva;
-    private javax.swing.JComboBox<String> desplegableClientes;
-    private javax.swing.JComboBox<String> desplegableClientes1;
+    public javax.swing.JComboBox<String> desplegableClientes;
+    public javax.swing.JComboBox<String> desplegableReservas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JTextArea txtReservas;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,7 +9,6 @@ package interfaz;
  * @author Diurno
  */
 public class CrearReserva extends javax.swing.JFrame {
-IntroducirDatos datos;
     /**
      * Creates new form CrearReserva
      */

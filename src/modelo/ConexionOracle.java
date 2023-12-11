@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class ConexionOracle {
-    String user = "C##EQUIPO";
+    String user = "system";
     String passwd = "admin";
     String url = "jdbc:oracle:thin:@localhost:1521:xe";
     Connection conexionOracle;
