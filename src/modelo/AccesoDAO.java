@@ -51,6 +51,23 @@ public class AccesoDAO {
         return contenido;
     }
 
+    public void insertarReserva(String idCliente, String idObra, String idTeatro, float precio) {
+        try {
+            String query = "INSERT INTO RESERVA (idcliente, idObra, idteatro, precio) VALUES (?, ?, ?, ?)";
+
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1, idCliente);
+            statement.setString(2, idObra);
+            statement.setString(3, idTeatro);
+            statement.setFloat(4, precio);
+            statement.executeUpdate();
+            statement.close();
+
+            System.out.println("Reserva insertada correctamente.");
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar la reserva: " + ex.getMessage());
+        }
+    }
     public ArrayList<String> recorrerClientes() {
         ArrayList<String> lista = new ArrayList<>();
         try {
@@ -111,4 +128,5 @@ public class AccesoDAO {
         return obras;
 
     }
+    
 }
