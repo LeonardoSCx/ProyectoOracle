@@ -30,17 +30,23 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnMostrar" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="desplegableClientes" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                  <Component id="desplegableReservas" min="-2" pref="114" max="-2" attributes="0"/>
-                  <Component id="btnMostrar1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnMostrar1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnActualizarR" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="btnMostrar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="desplegableReservas" alignment="0" pref="114" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnNuevaReserva" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane1" pref="225" max="32767" attributes="0"/>
+                  <Component id="btnNuevaReserva" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
           </Group>
@@ -58,15 +64,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane1" min="-2" pref="149" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnNuevaReserva" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnNuevaReserva" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnActualizarR" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="desplegableClientes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnMostrar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="desplegableReservas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="desplegableReservas" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnMostrar1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -149,6 +158,14 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrar1ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnActualizarR">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Actualizar Reserva"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

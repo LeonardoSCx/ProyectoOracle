@@ -27,7 +27,7 @@ public class AccesoDAO {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setString(1, nomCliente);
             ResultSet resul = sentencia.executeQuery();
-            
+
             while (resul.next()) {
                 int idReserva;
                 String nombreCliente;
@@ -43,12 +43,51 @@ public class AccesoDAO {
                 nombreObra = resul.getString(5);
                 precio = resul.getFloat(6);
 
-                contenido += "ID Reserva: "+idReserva+" Nombre: " + nombreCliente + " DNI: " + idCliente + " Teatro: " + nombreTeatro + "Obra: " + nombreObra + " Precio: " + precio;
+                contenido += "ID Reserva: " + idReserva + " Nombre: " + nombreCliente + " DNI: " + idCliente + " Teatro: " + nombreTeatro + "Obra: " + nombreObra + " Precio: " + precio;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return contenido;
+    }
+
+    public void actualizarPrecioEnReservaYTablasRelacionadas(int idReserva, float nuevoPrecio) {
+    
+        try {
+
+            String queryReserva = "UPDATE Reserva SET precio = ? WHERE idReserva = ?";
+            PreparedStatement statementReserva = conexion.prepareStatement(queryReserva);
+            statementReserva.setFloat(1, nuevoPrecio);
+            statementReserva.setInt(2, idReserva);
+            statementReserva.executeUpdate();
+            statementReserva.close();
+            
+            
+            actualizarPrecioEnObraTeatro(idReserva, nuevoPrecio);
+            
+           
+            conexion.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+}
+    private void actualizarPrecioEnObraTeatro(int idReserva, float nuevoPrecio) {
+       
+        try {
+            String queryObraTeatro = "UPDATE Obras_Teatro OT "
+                    + "INNER JOIN Reserva R ON R.idObra = OT.id_obras "
+                    + "SET OT.precio = ? "
+                    + "WHERE R.idReserva = ?";
+            PreparedStatement statementObraTeatro = conexion.prepareStatement(queryObraTeatro);
+            statementObraTeatro.setFloat(1, nuevoPrecio);
+            statementObraTeatro.setInt(2, idReserva);
+            statementObraTeatro.executeUpdate();
+            statementObraTeatro.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public void insertarReserva(String idCliente, String idObra, String idTeatro, float precio) {
@@ -68,6 +107,7 @@ public class AccesoDAO {
             System.out.println("Error al insertar la reserva: " + ex.getMessage());
         }
     }
+
     public ArrayList<String> recorrerClientes() {
         ArrayList<String> lista = new ArrayList<>();
         try {
@@ -128,5 +168,5 @@ public class AccesoDAO {
         return obras;
 
     }
-    
+
 }
