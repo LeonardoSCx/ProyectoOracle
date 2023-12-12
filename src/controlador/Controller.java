@@ -1,6 +1,7 @@
 package controlador;
 
 import interfaz.CrearReserva;
+import interfaz.ActualizarDatos;
 import interfaz.MostrarReservas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +13,13 @@ public class Controller implements ActionListener {
     AccesoDAO model;
     MostrarReservas view;
     CrearReserva viewReserva;
+    ActualizarDatos actualizarDatos;
 
-    public Controller(MostrarReservas view, AccesoDAO model, CrearReserva viewReserva) {
+    public Controller(MostrarReservas view, AccesoDAO model, CrearReserva viewReserva, ActualizarDatos actualizarDatos) {
         this.view = view;
         this.model = model;
         this.viewReserva = viewReserva;
+        this.actualizarDatos = actualizarDatos;
         agregarListener(this);
         cargarClientes();
         CargarObra();
@@ -31,6 +34,7 @@ public class Controller implements ActionListener {
         view.btnEliminar.addActionListener(listener);
         view.btnNuevaReserva.addActionListener(listener);
         viewReserva.btnReservar.addActionListener(listener);
+        actualizarDatos.btnActualizar.addActionListener(listener);
     }
 
     @Override
@@ -57,16 +61,16 @@ public class Controller implements ActionListener {
                     System.out.println("Algo salió mal");
                 }
             }
-        }else if(comando.equals("Crear nueva Reserva")){
+        } else if (comando.equals("Crear nueva Reserva")) {
             viewReserva.setVisible(true);
-        }else if(comando.equals("RESERVAR")){
+        } else if (comando.equals("RESERVAR")) {
             String clienteReserva = viewReserva.desplegableClienteReserva.getSelectedItem().toString();
             String obras = viewReserva.desplegableObras.getSelectedItem().toString();
             String teatro = viewReserva.desplegableTeatros.getSelectedItem().toString();
             if (clienteReserva != null && obras != null && teatro != null) {
                 if (!viewReserva.txtCoste.getText().isEmpty()) {
                     float precio = Float.parseFloat(viewReserva.txtCoste.getText());
-                    model.insertarReserva(model.getIDCliente(clienteReserva), model.getIDObra(obras), model.getIDTeatro(teatro), precio);   
+                    model.insertarReserva(model.getIDCliente(clienteReserva), model.getIDObra(obras), model.getIDTeatro(teatro), precio);
                     model.insertarHistorico(model.getLastReserva());
                 } else {
                     System.out.println("El campo de precio está vacío.");
@@ -75,6 +79,10 @@ public class Controller implements ActionListener {
             } else {
                 System.out.println("Por favor, seleccione un cliente, una obra y un teatro.");
             }
+        } else if (comando.equals("Actualizar")) {
+            int idObra = Integer.parseInt(actualizarDatos.txtObra.getText());
+            int precio = Integer.parseInt( actualizarDatos.txtPrecio.getText());
+            int idTeatro = Integer.parseInt(actualizarDatos.txtTeatro.getText());
         }
     }
 
@@ -93,6 +101,7 @@ public class Controller implements ActionListener {
             view.desplegableReservas.addItem(id + "");
         }
     }
+
     public void CargarObra() {
         viewReserva.desplegableObras.removeAllItems();
         ArrayList<String> obras = model.nombreObras();
