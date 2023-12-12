@@ -1,5 +1,6 @@
 package controlador;
 
+import interfaz.ActualizarDatos;
 import interfaz.CrearReserva;
 import interfaz.MostrarReservas;
 import java.awt.event.ActionEvent;
@@ -12,11 +13,13 @@ public class Controller implements ActionListener {
     AccesoDAO model;
     MostrarReservas view;
     CrearReserva viewReserva;
+    ActualizarDatos viewActualizar;
 
-    public Controller(MostrarReservas view, AccesoDAO model, CrearReserva viewReserva) {
+    public Controller(MostrarReservas view, AccesoDAO model, CrearReserva viewReserva, ActualizarDatos viewActualizar) {
         this.view = view;
         this.model = model;
         this.viewReserva = viewReserva;
+        this.viewActualizar = viewActualizar;
         agregarListener(this);
         cargarClientes();
         CargarObra();
@@ -31,6 +34,8 @@ public class Controller implements ActionListener {
         view.btnEliminar.addActionListener(listener);
         view.btnNuevaReserva.addActionListener(listener);
         viewReserva.btnReservar.addActionListener(listener);
+        view.btnActualizarR.addActionListener(listener);
+        viewActualizar.btnActualizar.addActionListener(listener);
     }
 
     @Override
@@ -75,6 +80,19 @@ public class Controller implements ActionListener {
             } else {
                 System.out.println("Por favor, seleccione un cliente, una obra y un teatro.");
             }
+        }else if (comando.equals("Actualizar Reserva")) {
+            viewActualizar.setVisible(true);
+        } else if (comando.equals("ACTUALIZAR")) {
+            String idReserva = viewActualizar.txtReserva.getText();
+            String nuevoPrecio = viewActualizar.txtPrecio.getText();
+            if (!idReserva.isEmpty() && !nuevoPrecio.isEmpty()) {
+                int id = Integer.parseInt(idReserva);
+                float precio = Float.parseFloat(nuevoPrecio);
+                model.actualizarPrecioEnReservaYTablasRelacionadas(id, precio);
+            } else {
+                System.out.println("Por favor, ingrese el ID de la reserva y el nuevo precio.");
+            }
+
         }
     }
 

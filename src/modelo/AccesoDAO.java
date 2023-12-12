@@ -155,9 +155,10 @@ public class AccesoDAO {
         }
         return idcliente;
     }
+
     public int getIDObra(String nombreCliente) {
         String consulta = "SELECT idobra FROM OBRA WHERE nombre=?";
-        int idobra =0;
+        int idobra = 0;
         try {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setString(1, nombreCliente);
@@ -170,6 +171,7 @@ public class AccesoDAO {
         }
         return idobra;
     }
+
     public int getIDTeatro(String nombreCliente) {
         String consulta = "SELECT idteatro FROM TEATRO WHERE nombre=?";
         int idTeatro = 0;
@@ -210,7 +212,7 @@ public class AccesoDAO {
         try {
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             ResultSet resultado = sentencia.executeQuery();
-            while(resultado.next()){
+            while (resultado.next()) {
                 idReserva = resultado.getInt(1);
             }
         } catch (SQLException ex) {
@@ -233,5 +235,43 @@ public class AccesoDAO {
             System.out.println("Mondongo");
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void actualizarPrecioEnReservaYTablasRelacionadas(int idReserva, float nuevoPrecio) {
+
+        try {
+
+            String queryReserva = "UPDATE Reserva SET precio = ? WHERE idReserva = ?";
+            PreparedStatement statementReserva = conexion.prepareStatement(queryReserva);
+            statementReserva.setFloat(1, nuevoPrecio);
+            statementReserva.setInt(2, idReserva);
+            statementReserva.executeUpdate();
+            statementReserva.close();
+
+            actualizarPrecioEnObraTeatro(idReserva, nuevoPrecio);
+//            conexion.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void actualizarPrecioEnObraTeatro(int idReserva, float nuevoPrecio) {
+
+        try {
+            String queryObraTeatro = "UPDATE (SELECT OT.precio  FROM RESERVA R inner join OBRAS_TEATRO  OT on R.idteatro = OT.id_obras WHERE r.idreserva = ?) t set t.precio = ?";
+//            String queryObraTeatro = "UPDATE Obras_Teatro OT "
+//                    + "INNER JOIN Reserva R ON R.idObra = OT.id_obras "
+//                    + "SET OT.precio = ? "
+//                    + "WHERE R.idReserva = ?";
+            PreparedStatement statementObraTeatro = conexion.prepareStatement(queryObraTeatro);
+            statementObraTeatro.setInt(1, idReserva);
+            statementObraTeatro.setFloat(2, nuevoPrecio);
+            statementObraTeatro.executeUpdate();
+            statementObraTeatro.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
