@@ -18,7 +18,10 @@ public class AccesoDAO {
     public String consultaReserva(String nomCliente) {
         String contenido = "";
         try {
-            String consulta = "SELECT r.idreserva, c.nombre,c.dni, t.nombre, o.nombre, r.precio from RESERVA r inner join CLIENTE c on r.idcliente = c.dni INNER JOIN OBRA o on r.idobra = o.idobra INNER JOIN TEATRO t on r.idteatro = t.idteatro INNER JOIN HISTORICO h ON r.idreserva = h.idreserva WHERE c.nombre=? AND h.reservado='Reservado'";
+            String consulta = "SELECT r.idreserva, c.nombre,c.dni, t.nombre, o.nombre, r.precio from RESERVA r "
+                    + "inner join CLIENTE c on r.idcliente = c.dni INNER JOIN OBRA o on r.idobra = o.idobra "
+                    + "INNER JOIN TEATRO t on r.idteatro = t.idteatro INNER JOIN HISTORICO h ON r.idreserva = h.idreserva "
+                    + "WHERE c.nombre=? AND h.reservado='Reservado'";
             PreparedStatement sentencia = conexion.prepareStatement(consulta);
             sentencia.setString(1, nomCliente);
             ResultSet resul = sentencia.executeQuery();
@@ -37,7 +40,8 @@ public class AccesoDAO {
                 nombreObra = resul.getString(5);
                 precio = resul.getFloat(6);
 
-                contenido += "ID Reserva: " + idReserva + " | Nombre: " + nombreCliente + " | DNI: " + idCliente + " | Teatro: " + nombreTeatro + " | Obra: " + nombreObra + " | Precio: " + precio;
+                contenido += "ID Reserva: " + idReserva + " | Nombre: " + nombreCliente + " | DNI: " + idCliente + " | Teatro: " + nombreTeatro 
+                        + " | Obra: " + nombreObra + " | Precio: " + precio;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -227,7 +231,6 @@ public class AccesoDAO {
             llamada.close();
             conexion.close();
         } catch (SQLException ex) {
-            System.out.println("Mondongo");
             Logger.getLogger(AccesoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
