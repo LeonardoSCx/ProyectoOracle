@@ -30,7 +30,6 @@ public class AccesoDAO {
                 String nombreTeatro;
                 String nombreObra;
                 float precio;
-
                 idReserva = resul.getInt(1);
                 nombreCliente = resul.getString(2);
                 idCliente = resul.getString(3);
@@ -78,10 +77,6 @@ public class AccesoDAO {
         }
 
         return lista;
-
-    }
-
-    public void introducirDatos(String dniCliente, String idTeatro, String idObra, double precio) {
 
     }
 

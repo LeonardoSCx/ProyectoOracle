@@ -62,7 +62,7 @@ public class Controller implements ActionListener {
                     System.out.println("Algo salió mal");
                 }
             }
-        }else if(comando.equals("Crear nueva Reserva")){
+        }else if(comando.equals("CREAR NUEVA RESERVA")){
             viewReserva.setVisible(true);
         }else if(comando.equals("RESERVAR")){
             String clienteReserva = viewReserva.desplegableClienteReserva.getSelectedItem().toString();
