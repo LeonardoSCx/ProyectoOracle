@@ -6,16 +6,18 @@ import interfaz.MostrarReservas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import modelo.AccesoDAO;
+import modelo.DAO.AccesoDAO_old;
+import modelo.DAO.ClienteDAO;
 
 public class Controller implements ActionListener {
 
-    AccesoDAO model;
+    AccesoDAO_old model;
     MostrarReservas view;
     CrearReserva viewReserva;
     ActualizarDatos viewActualizar;
+    ClienteDAO modeloCliente;
 
-    public Controller(MostrarReservas view, AccesoDAO model, CrearReserva viewReserva, ActualizarDatos viewActualizar) {
+    public Controller(MostrarReservas view, AccesoDAO_old model, CrearReserva viewReserva, ActualizarDatos viewActualizar) {
         this.view = view;
         this.model = model;
         this.viewReserva = viewReserva;
@@ -43,6 +45,7 @@ public class Controller implements ActionListener {
         String comando = e.getActionCommand();
         String cliente = view.getDesplegableClientes().getSelectedItem().toString();
         if (comando.equals("Mostrar")) {
+            
             if (cliente == null) {
                 System.out.println("Elige un cliente!");
             } else {

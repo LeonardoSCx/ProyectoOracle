@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package modelo.Clases;
 
 /**
  *
@@ -18,6 +18,14 @@ public class Teatro {
         this.nombre = nombre;
         this.direccion = direccion;
     }
+
+    public Teatro(String nombre, String direccion) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+    }
+
+    
+    
 
     public int getIdteatro() {
         return idteatro;
