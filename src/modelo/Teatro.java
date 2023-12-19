@@ -19,6 +19,11 @@ public class Teatro {
         this.direccion = direccion;
     }
 
+    public Teatro(String nombre, String direccion) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+    }
+    
     public int getIdteatro() {
         return idteatro;
     }

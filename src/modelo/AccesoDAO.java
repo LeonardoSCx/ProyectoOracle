@@ -9,7 +9,7 @@ public class AccesoDAO {
 
     private ConexionOracle con;
     private Connection conexion;
-
+    
     public AccesoDAO() {
         con = new ConexionOracle();
         conexion = con.conectar();
