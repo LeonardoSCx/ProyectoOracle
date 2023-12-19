@@ -21,6 +21,13 @@ public class Obra {
         this.genero = genero;
     }
 
+    public Obra(String nombre, String descripcion, String genero) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.genero = genero;
+    }
+    
+
     public int getIdObra() {
         return idObra;
     }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controlador;
 
 import interfaz.UI_Obra;
@@ -11,12 +7,10 @@ import modelo.DAO.AccesoDAO;
 import interfaz.Vista;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import modelo.Clases.Obra;
+import modelo.Clases.Teatro;
 
-/**
- *
- * @author leogu
- */
 public class Controlador implements ActionListener {
 
     AccesoDAO modelo;
@@ -44,6 +38,9 @@ public class Controlador implements ActionListener {
         vista.btnCRUDteatro.addActionListener(listener);
         // Vista obra
         vistaObra.btnConsultar.addActionListener(listener);
+        vistaObra.btnEliminar.addActionListener(listener);
+        vistaObra.btnInsertar.addActionListener(listener);
+        vistaObra.btnModificar.addActionListener(listener);
     }
 
     @Override
@@ -65,6 +62,40 @@ public class Controlador implements ActionListener {
                         vistaObra.txtAreaObras.setText(obra.toString());
                         break;
                     }
+                }
+                break;
+            case "Eliminar Obra":
+                modelo.obraDAO.consultar();
+                for (Obra obra : modelo.obraDAO.listaobra.getObras()) {
+                    int idObra = Integer.parseInt(vistaObra.cboIDsObras.getSelectedItem().toString());
+                    if (obra.getIdObra() == idObra) {
+                        int filas = modelo.obraDAO.borrar(idObra);
+                        JOptionPane.showMessageDialog(null, "Filas borradas: " + filas);
+                        break;
+                    }
+                }
+                break;
+            case "Insertar Obra":
+                String nombreObra = vistaObra.txtNombre.getText();
+                String descripcionObra = vistaObra.txtDescripcion.getText();
+                String generoObra = vistaObra.txtGenero.getText();
+                if (nombreObra.length() != 0 && descripcionObra.length() != 0 && generoObra.length() != 0) {
+                    int filas = modelo.obraDAO.insertar(new Obra(nombreObra, descripcionObra, generoObra));
+                    JOptionPane.showMessageDialog(null, "Filas insertadas: " + filas);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Rellena todos los campos");
+                }
+                break;
+            case "Modificar Obra":
+                int idObra = Integer.parseInt(vistaObra.cboIDsObras.getSelectedItem().toString());
+                nombreObra = vistaObra.txtNombre.getText();
+                descripcionObra = vistaObra.txtDescripcion.getText();
+                generoObra = vistaObra.txtGenero.getText();
+                if (nombreObra.length() != 0 && descripcionObra.length() != 0 && generoObra.length() != 0) {
+                    int filas = modelo.obraDAO.actualizar(new Obra(idObra, nombreObra, descripcionObra, generoObra));
+                    JOptionPane.showMessageDialog(null, "Filas insertadas: " + filas);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Rellena todos los campos");
                 }
                 break;
             case "CRUD Teatro":
