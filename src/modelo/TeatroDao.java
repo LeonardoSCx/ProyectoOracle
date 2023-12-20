@@ -39,8 +39,9 @@ public class TeatroDao {
                 int idTeatro = resul.getInt(1);
                 String nombre = resul.getString(2);
                 String direccion = resul.getString(3);
-
                 listaTeatro.agregarTeatro(new Teatro(idTeatro, nombre, direccion));
+               
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(TeatroDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,8 +65,6 @@ public class TeatroDao {
         }
     }
 
-  
-
     public boolean eliminarReserva(int idTeatro) {
         boolean hecho = false;
         String sqlString = "DELETE FROM TEATRO WHERE idteatro=?";
@@ -81,8 +80,8 @@ public class TeatroDao {
         }
         return hecho;
     }
-    
-        public void actualizar(String nombre, String direccion) {
+
+    public void actualizar(String nombre, String direccion) {
 
         try {
 
