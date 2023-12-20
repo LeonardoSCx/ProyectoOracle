@@ -41,8 +41,6 @@ public class UI_Obra extends javax.swing.JFrame {
         btnInsertar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setText("ID OBRA");
 
         cboIDsObras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

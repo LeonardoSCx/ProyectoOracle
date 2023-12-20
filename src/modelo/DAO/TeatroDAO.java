@@ -2,6 +2,8 @@ package modelo.DAO;
 
 import modelo.Clases.ListaTeatros;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Clases.Teatro;
 import modelo.Interfaz.CRUD;
 
@@ -35,15 +37,14 @@ public class TeatroDAO implements CRUD {
     public int insertar(Object o) {
         Teatro t = (Teatro) o;
         int filasAfectadas = 0;
+        String query = "INSERT INTO TEATRO (nombre, direccion) VALUES (?, ?)";
         try {
-            String query = "INSERT INTO TEATRO (nombre, direccion) VALUES (?, ?,)";
-
             PreparedStatement statement = sesion.prepareStatement(query);
             statement.setString(1, t.getNombre());
             statement.setString(2, t.getDireccion());
             filasAfectadas = statement.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Error al insertar el teatro: " + ex.getMessage());
+            Logger.getLogger(TeatroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return filasAfectadas;
     }
@@ -69,11 +70,10 @@ public class TeatroDAO implements CRUD {
     @Override
     public int borrar(Object o) {
         int filasAfectadas = 0;
-        Teatro t = (Teatro) o;
         String sqlString = "DELETE FROM TEATRO WHERE idteatro=?";
         try {
             PreparedStatement sentencia1 = sesion.prepareStatement(sqlString);
-            sentencia1.setInt(1, t.getIdteatro());
+            sentencia1.setInt(1, (int)o);
             filasAfectadas = sentencia1.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.toString());

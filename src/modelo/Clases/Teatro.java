@@ -22,10 +22,7 @@ public class Teatro {
     public Teatro(String nombre, String direccion) {
         this.nombre = nombre;
         this.direccion = direccion;
-    }
-
-    
-    
+    } 
 
     public int getIdteatro() {
         return idteatro;
@@ -50,4 +47,10 @@ public class Teatro {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    @Override
+    public String toString() {
+        return "Teatro{" + "idteatro=" + idteatro + ", nombre=" + nombre + ", direccion=" + direccion + '}';
+    }
+    
 }

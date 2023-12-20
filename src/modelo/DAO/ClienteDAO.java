@@ -33,10 +33,6 @@ public class ClienteDAO implements CRUD {
         }
     }
 
-    public Cliente crearCliente(String dni, String nombre, int telefono, String direccion, String correo) {
-        return new Cliente(dni, nombre, telefono, direccion, correo);
-    }
-
     @Override
     public int insertar(Object o) {
         
@@ -88,7 +84,7 @@ public class ClienteDAO implements CRUD {
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return filasAfectadas;
     }
 
 }
