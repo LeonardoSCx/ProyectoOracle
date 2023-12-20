@@ -36,10 +36,12 @@ public class Controlador implements ActionListener {
         this.vistaCliente = vistaCliente;
         this.vistaTeatro = vistaTeatro;
         this.vistaReserva = vistaReserva;
-        agregarListener(this);
         cargarIdObra();
         cargarIdTeatro();
         cargarIdCliente();
+        cargarReservas();
+        agregarListener(this);
+
     }
 
     public void agregarListener(ActionListener listener) {
@@ -69,6 +71,23 @@ public class Controlador implements ActionListener {
         vistaReserva.btnInsertar.addActionListener(listener);
         vistaReserva.btnModificar.addActionListener(listener);
         // Por lo menos un combo box para el precio
+        vistaReserva.cbTeatro.addActionListener((e) -> {
+            if (vistaReserva.cbObra.getSelectedItem() != null && vistaReserva.cbTeatro.getSelectedItem() != null) {
+                int idObra = Integer.parseInt(vistaReserva.cbObra.getSelectedItem().toString());
+                int idTeatro = Integer.parseInt(vistaReserva.cbTeatro.getSelectedItem().toString());
+                float precio = modelo.reservaDAO.getPrecio(idObra, idTeatro);
+                vistaReserva.lblPrecio.setText("Precio: " + precio + " euros.");
+            }
+
+        });
+        vistaReserva.cbObra.addActionListener((e) -> {
+            if (vistaReserva.cbObra.getSelectedItem() != null && vistaReserva.cbTeatro.getSelectedItem() != null) {
+            int idObra = Integer.parseInt(vistaReserva.cbObra.getSelectedItem().toString());
+            int idTeatro = Integer.parseInt(vistaReserva.cbTeatro.getSelectedItem().toString());
+            float precio = modelo.reservaDAO.getPrecio(idObra, idTeatro);
+            vistaReserva.lblPrecio.setText("Precio: " + precio + " euros.");
+            }
+        });
     }
 
     @Override
@@ -80,22 +99,44 @@ public class Controlador implements ActionListener {
                 vistaReserva.setVisible(true);
                 break;
             case "Consultar Reserva":
-
+                int idReserva = Integer.parseInt(vistaReserva.cboIDsReserva.getSelectedItem().toString());
+                for (Reserva reserva : modelo.reservaDAO.listaReservas.getReservas()) {
+                    if (idReserva == reserva.getIdReserva()) {
+                        vistaReserva.txtAreaReservas.setText(reserva.toString());
+                        break;
+                    }
+                }
                 break;
             case "Eliminar Reserva":
-
+                idReserva = Integer.parseInt(vistaReserva.cboIDsReserva.getSelectedItem().toString());
+                int filas = modelo.reservaDAO.borrar(idReserva);
+                JOptionPane.showMessageDialog(null, "Filas borradas: " + filas);
+                cargarReservas();
                 break;
             case "Insertar Reserva":
-
+                String idCliente = vistaReserva.cbCliente.getSelectedItem().toString();
+                int idTeatro = Integer.parseInt(vistaReserva.cbTeatro.getSelectedItem().toString());
+                int idObra = Integer.parseInt(vistaReserva.cbObra.getSelectedItem().toString());
+                float precio = Float.parseFloat(vistaReserva.lblPrecio.getText().split(":")[1].trim().replace(" euros.", ""));
+                filas = modelo.reservaDAO.insertar(new Reserva(idCliente, idObra, idTeatro, precio));
+                JOptionPane.showMessageDialog(null, "Filas insertadas: " + filas);
+                cargarReservas();
                 break;
             case "Modificar Reserva":
-
+                idReserva = Integer.parseInt(vistaReserva.cboIDsReserva.getSelectedItem().toString());
+                idCliente = vistaReserva.cbCliente.getSelectedItem().toString();
+                idTeatro = Integer.parseInt(vistaReserva.cbTeatro.getSelectedItem().toString());
+                idObra = Integer.parseInt(vistaReserva.cbObra.getSelectedItem().toString());
+                precio = Float.parseFloat(vistaReserva.lblPrecio.getText().split(":")[1].trim().replace(" euros.", ""));
+                filas = modelo.reservaDAO.actualizar(new Reserva(idReserva, idCliente, idObra, idTeatro, precio));
+                JOptionPane.showMessageDialog(null, "Filas actualizadas: " + filas);
+                cargarReservas();
                 break;
             case "CRUD Obras":
                 vistaObra.setVisible(true);
                 break;
             case "Consultar Obra":
-                int idObra = Integer.parseInt(vistaObra.cboIDsObras.getSelectedItem().toString());
+                idObra = Integer.parseInt(vistaObra.cboIDsObras.getSelectedItem().toString());
                 for (Obra obra : modelo.obraDAO.listaobra.getObras()) {
                     if (obra.getIdObra() == idObra) {
                         vistaObra.txtAreaObras.setText(obra.toString());
@@ -105,7 +146,7 @@ public class Controlador implements ActionListener {
                 break;
             case "Eliminar Obra":
                 idObra = Integer.parseInt(vistaObra.cboIDsObras.getSelectedItem().toString());
-                int filas = modelo.obraDAO.borrar(idObra);
+                filas = modelo.obraDAO.borrar(idObra);
                 JOptionPane.showMessageDialog(null, "Filas borradas: " + filas);
                 cargarIdObra();
                 break;
@@ -138,7 +179,7 @@ public class Controlador implements ActionListener {
                 vistaTeatro.setVisible(true);
                 break;
             case "Consultar Teatro":
-                int idTeatro = Integer.parseInt(vistaTeatro.cboTeatroId.getSelectedItem().toString());
+                idTeatro = Integer.parseInt(vistaTeatro.cboTeatroId.getSelectedItem().toString());
                 for (Teatro teatro : modelo.teatroDAO.listaTeatro.getTeatros()) {
                     if (idTeatro == teatro.getIdteatro()) {
                         vistaTeatro.txtaInfoTeatro.setText(teatro.toString());
@@ -255,21 +296,19 @@ public class Controlador implements ActionListener {
             vistaCliente.cboCliente.addItem(cliente.getDni());
         }
     }
-    public void cargarReservas(){
+
+    public void cargarReservas() {
         modelo.reservaDAO.consultar();
         vistaReserva.cboIDsReserva.removeAllItems();
         vistaReserva.cbCliente.removeAllItems();
         vistaReserva.cbTeatro.removeAllItems();
         vistaReserva.cbObra.removeAllItems();
         for (Reserva reserva : modelo.reservaDAO.listaReservas.getReservas()) {
-            vistaReserva.cboIDsReserva.addItem(reserva.getIdReserva()+"");
-        vistaReserva.cbCliente.addItem(reserva.getIdcliente());
-        vistaReserva.cbTeatro.addItem(reserva.getIdteatro()+"");
-        vistaReserva.cbObra.addItem(reserva.getIdObra()+"");
+            vistaReserva.cboIDsReserva.addItem(reserva.getIdReserva() + "");
+            vistaReserva.cbCliente.addItem(reserva.getIdcliente());
+            vistaReserva.cbTeatro.addItem(reserva.getIdteatro() + "");
+            vistaReserva.cbObra.addItem(reserva.getIdObra() + "");
         }
-       
-    }
-    public void cargarPrecio(){
-        
+
     }
 }

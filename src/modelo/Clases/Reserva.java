@@ -24,6 +24,14 @@ package modelo.Clases;
         this.precio = precio;
     }
 
+    public Reserva(String idcliente, int idObra, int idteatro, float precio) {
+        this.idcliente = idcliente;
+        this.idObra = idObra;
+        this.idteatro = idteatro;
+        this.precio = precio;
+    }
+    
+
     public int getIdReserva() {
         return idReserva;
     }
@@ -63,5 +71,11 @@ package modelo.Clases;
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        return "Reserva{" + "idReserva=" + idReserva + ", idcliente=" + idcliente + ", idObra=" + idObra + ", idteatro=" + idteatro + ", precio=" + precio + '}';
+    }
+    
 }
 

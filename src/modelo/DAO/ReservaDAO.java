@@ -77,6 +77,7 @@ public class ReservaDAO implements CRUD{
             ps.setInt(2, reserva.getIdObra());
             ps.setInt(3, reserva.getIdteatro());
             ps.setFloat(4, reserva.getPrecio());
+            ps.setInt(5, reserva.getIdReserva());
             
             filasAfectadas = ps.executeUpdate();
             
@@ -100,6 +101,23 @@ public class ReservaDAO implements CRUD{
             Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return filasAfectadas;
+    }
+    
+    public float getPrecio(int idObra, int idTeatro){
+        String sql = "SELECT precio FROM OBRAS_TEATRO WHERE idteatro = ? AND idobras = ?";
+        float precio = 0;
+        try {
+            PreparedStatement sentencia = sesion.prepareStatement(sql);
+            sentencia.setInt(1, idTeatro);
+            sentencia.setInt(2, idObra);
+            ResultSet res = sentencia.executeQuery();
+            while(res.next()){
+                precio = res.getFloat(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return precio;
     }
     
 }
