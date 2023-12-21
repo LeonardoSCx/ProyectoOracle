@@ -25,5 +25,14 @@ public class ConexionOracle {
         
         return conexionOracle;
     }
-    
+    public void desconectar(){
+        try {
+            conexionOracle.close();
+            conexionOracle = null;
+            System.out.println("Conexión cerrada");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionOracle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

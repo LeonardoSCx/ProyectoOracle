@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package modelo.Clases;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +11,18 @@ import java.util.List;
  *
  * @author Diurno
  */
-public class ListaReservas {
-    private List<Reserva> reservas;
+public class ListaClientes {
+    private List<Cliente> clientes;
 
-    public ListaReservas() {
-        this.reservas = new ArrayList<>();
+    public ListaClientes() {
+        this.clientes = new ArrayList<>();
     }
 
-    public List<Reserva> getReservas() {
-        return reservas;
+    public List<Cliente> getClientes() {
+        return clientes;
     }
 
-    public void agregarReserva(Reserva reserva) {
-        reservas.add(reserva);
+    public void add(Cliente cliente) {
+        clientes.add(cliente);
     }
 }

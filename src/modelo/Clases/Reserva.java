@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package modelo.Clases;
 
 /**
  *
@@ -23,6 +23,14 @@ package Modelo;
         this.idteatro = idteatro;
         this.precio = precio;
     }
+
+    public Reserva(String idcliente, int idObra, int idteatro, float precio) {
+        this.idcliente = idcliente;
+        this.idObra = idObra;
+        this.idteatro = idteatro;
+        this.precio = precio;
+    }
+    
 
     public int getIdReserva() {
         return idReserva;
@@ -63,5 +71,11 @@ package Modelo;
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        return "Reserva{" + "idReserva=" + idReserva + ", idcliente=" + idcliente + ", idObra=" + idObra + ", idteatro=" + idteatro + ", precio=" + precio + '}';
+    }
+    
 }
 

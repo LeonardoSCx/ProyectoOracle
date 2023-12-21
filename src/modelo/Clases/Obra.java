@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package modelo.Clases;
 
 /**
  *
@@ -20,6 +20,13 @@ public class Obra {
         this.descripcion = descripcion;
         this.genero = genero;
     }
+
+    public Obra(String nombre, String descripcion, String genero) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.genero = genero;
+    }
+    
 
     public int getIdObra() {
         return idObra;
@@ -52,4 +59,10 @@ public class Obra {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    @Override
+    public String toString() {
+        return "Obra{" + "idObra=" + idObra + ", nombre=" + nombre + ", descripcion=" + descripcion + ", genero=" + genero + '}';
+    }
+    
 }

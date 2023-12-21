@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package modelo.Clases;
 
 /**
  *
@@ -22,6 +22,14 @@ public class Cliente {
         this.direccion = direccion;
         this.correo = correo;
     }
+
+    public Cliente(String nombre, int telefono, String direccion, String correo) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.correo = correo;
+    }
+    
 
     public String getDni() {
         return dni;
@@ -62,4 +70,10 @@ public class Cliente {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "dni=" + dni + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion + ", correo=" + correo + '}';
+    }
+    
 }
